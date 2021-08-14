@@ -1,15 +1,52 @@
 import Head from 'next/head'
+
 import Layout, { siteTitle } from '../components/layout'
+
+import { getSortedPostsData } from '../lib/posts'
+
 import utilStyles from '../styles/utils.module.css'
 
-export default function Home() {
+const {
+  headingMd,
+  headingLg,
+  list,
+  listItem,
+  padding1px
+} = utilStyles;
+
+export async function getStaticProps() {
+  const allPostsData = getSortedPostsData()
+  return {
+    props: {
+      allPostsData
+    }
+  }
+}
+
+export default function Home({ allPostsData }) {
   return (
     <Layout home>
       <Head>
-        <title>{siteTitle}</title>
+        <title>{ siteTitle }</title>
       </Head>
-      <section className={utilStyles.headingMd}>
-        <p>Hi I'm Nick. I'm a software engineer and native Austinite. You can contact me on <a href="https://www.linkedin.com/in/nickvirden/" target="_blank" rel="noopener noreferrer">LinkedIn</a>.</p>
+      <section className={headingMd}>
+        <p>Hi I'm Nick. I'm a senior JavaScript developer with 4.5+ years of experience and native Austinite. You can contact me on <a href="https://www.linkedin.com/in/nickvirden/" target="_blank" rel="noopener noreferrer">LinkedIn</a>.</p>
+      </section>
+      <section className={`${headingMd} ${padding1px}`}>
+        <h2 className={headingLg}>Blog</h2>
+        <ul className={list}>
+          {
+            allPostsData.map(({ id, date, title }) => (
+              <li className={listItem} key={id}>
+                { title }
+                <br />
+                { id }
+                <br />
+                { date }
+              </li>
+            ))
+          }
+        </ul>
       </section>
     </Layout>
   )
