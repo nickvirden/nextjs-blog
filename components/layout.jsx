@@ -7,11 +7,25 @@ import utilStyles from '../styles/utils.module.css'
 import styles from './layout.module.css'
 
 const name = 'Nick Virden'
+const profileImgUrl = "/images/profile.jpeg"
 export const siteTitle = 'Next.js Sample Website'
+
+const
+  {
+    borderCircle,
+    heading2Xl,
+    headingLg,
+    colorInherit
+  } = utilStyles,
+  {
+    container,
+    header,
+    backToHome
+  } = styles;
 
 export default function Layout({ children, home }) {
   return (
-    <div className={styles.container}>
+    <div className={container}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta
@@ -27,18 +41,18 @@ export default function Layout({ children, home }) {
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <header className={styles.header}>
+      <header className={header}>
         {home ? (
           <>
             <Image
               priority
-              src="/images/profile.jpeg"
-              className={utilStyles.borderCircle}
+              src={profileImgUrl}
+              className={borderCircle}
               height={144}
               width={144}
               alt={name}
             />
-            <h1 className={utilStyles.heading2Xl}>{name}</h1>
+            <h1 className={heading2Xl}>{name}</h1>
           </>
         ) : (
           <>
@@ -46,17 +60,17 @@ export default function Layout({ children, home }) {
               <a>
                 <Image
                   priority
-                  src="/images/profile.jpg"
-                  className={utilStyles.borderCircle}
+                  src={profileImgUrl}
+                  className={borderCircle}
                   height={108}
                   width={108}
                   alt={name}
                 />
               </a>
             </Link>
-            <h2 className={utilStyles.headingLg}>
+            <h2 className={headingLg}>
               <Link href="/">
-                <a className={utilStyles.colorInherit}>{name}</a>
+                <a className={colorInherit}>{name}</a>
               </Link>
             </h2>
           </>
@@ -64,7 +78,7 @@ export default function Layout({ children, home }) {
       </header>
       <main>{children}</main>
       {!home && (
-        <div className={styles.backToHome}>
+        <div className={backToHome}>
           <Link href="/">
             <a>← Back to home</a>
           </Link>

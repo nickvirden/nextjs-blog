@@ -1,5 +1,7 @@
+import Link from 'next/link'
 import Head from 'next/head'
 
+import Date from '../components/date'
 import Layout, { siteTitle } from '../components/layout'
 
 import { getSortedPostsData } from '../lib/posts'
@@ -11,7 +13,8 @@ const {
   headingLg,
   list,
   listItem,
-  padding1px
+  padding1px,
+  lightText
 } = utilStyles;
 
 export async function getStaticProps() {
@@ -38,11 +41,13 @@ export default function Home({ allPostsData }) {
           {
             allPostsData.map(({ id, date, title }) => (
               <li className={listItem} key={id}>
-                { title }
+                <Link href={`/posts/${id}`}>
+                  <a>{title}</a>
+                </Link>
                 <br />
-                { id }
-                <br />
-                { date }
+                <small className={lightText}>
+                  <Date dateString={date} />
+                </small>
               </li>
             ))
           }
