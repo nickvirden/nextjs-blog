@@ -5,6 +5,8 @@ import Layout from '../../components/layout'
 
 import { getAllPostIds, getPostData } from '../../lib/posts'
 
+import utilStyles from '../../styles/utils.module.css'
+
 export async function getStaticPaths() {
   const paths = getAllPostIds()
   return {
@@ -22,6 +24,8 @@ export async function getStaticProps({ params }) {
   }
 }
 
+const { headingXl, lightText } = utilStyles;
+
 export default function Post({
   postData: {
     id,
@@ -30,19 +34,18 @@ export default function Post({
     contentHtml
   }
 }) {
-
   return (
     <Layout>
       <Head>
         <title>{ title }</title>
       </Head>
-      { title }
-      <br />
-      { id }
-      <br />
-      <Date dateString={postData.date} />
-      <br />
-      <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
+      <article>
+        <h1 className={headingXl}>{ title }</h1>
+        <div className={lightText}>
+          <Date dateString={ date } />
+        </div>
+        <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
+      </article>
     </Layout>
   )
 }
