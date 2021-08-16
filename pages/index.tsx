@@ -1,3 +1,5 @@
+import { GetStaticProps } from 'next'
+
 import Link from 'next/link'
 import Head from 'next/head'
 
@@ -17,16 +19,24 @@ const {
   lightText
 } = utilStyles;
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   const allPostsData = getSortedPostsData()
-  return {
+  return ({
     props: {
       allPostsData
     }
+  })
+}
+
+interface IAllPostsData {
+  allPostsData: {
+    date: string
+    title: string
+    id: string
   }
 }
 
-export default function Home({ allPostsData }) {
+export default function Home({ allPostsData }: IAllPostsData) {
   return (
     <Layout home>
       <Head>
